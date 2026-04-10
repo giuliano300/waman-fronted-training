@@ -1,0 +1,169 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb" style="justify-content: space-between;">
+        <li aria-current="page" class="breadcrumb-item active">trainings</li>
+        <li>
+            <button (click)="exportAll()" class="btn btn-export">
+                <i class="ri-file-excel-2-fill"></i> Export to Csv
+            </button>
+        </li>
+    </ol>
+</nav>
+<mat-card class="trinta-card to-do-list-card mb-10 bg-white border-none d-block filters">
+    <mat-card-content>
+        <div class="filter-panel">
+            <div class="filter-content">
+              <form [formGroup]="form">
+                  <div class="container">
+                      <div class="row">
+                          <div class="col-lg-3">
+                              <mat-form-field>
+                                  <i-feather name="bar-chart-2"></i-feather>
+                                  <mat-label>Year</mat-label>
+                                  <mat-select formControlName="year">
+                                      <mat-option *ngFor="let option of years" [value]="option">
+                                        {{ option }}
+                                      </mat-option>
+                                  </mat-select>
+                              </mat-form-field>                        
+                            </div>
+                          <div class="col-lg-2">
+                              <mat-form-field>
+                                  <i-feather name="bar-chart-2"></i-feather>
+                                  <mat-label>Make</mat-label>
+                                  <mat-select formControlName="make">
+                                      <mat-option value="">Select one option</mat-option>
+                                      <mat-option value=true>YES</mat-option>
+                                      <mat-option value=false>NO</mat-option>
+                                  </mat-select>
+                              </mat-form-field>                        
+                            </div>
+                            <div class="col-lg-1">
+                                <button mat-button class="filter" type="submit" (click)="onSubmit()">
+                                    Filter
+                                </button>               
+                            </div>
+                            <div class="col-lg-1">
+                                <button mat-button class="remove" type="submit" (click)="remove()">
+                                Remove
+                            </button>               
+                        </div>
+                      </div>
+                  </div>
+              </form>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>
+<mat-card
+    class="trinta-card to-do-list-card mb-25 bg-white border-none d-block"
+>
+    <mat-card-content>
+        <div class="to-do-list-table">
+            <div class="table-responsive">
+                <table mat-table [dataSource]="dataSource">
+
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="name">
+                        <th mat-header-cell *matHeaderCellDef class="pl-0">
+                            Name
+                        </th>
+                        <td mat-cell *matCellDef="let element" class="pl-0">
+                            <div class="position-relative">
+                                <h6 class="mt-0 mb-0">
+                                    {{element.planning.coursesName}}
+                                </h6>
+                            </div>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="day1">
+                        <th mat-header-cell *matHeaderCellDef class="pl-0">
+                            Day 1
+                        </th>
+                        <td mat-cell *matCellDef="let element" class="pl-0">
+                            <div class="position-relative">
+                                <h6 class="mt-0 mb-0">
+                                    {{getDate(element.planning.day_1)}}
+                                </h6>
+                            </div>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="day2">
+                        <th mat-header-cell *matHeaderCellDef class="pl-0">
+                            Day 2
+                        </th>
+                        <td mat-cell *matCellDef="let element" class="pl-0">
+                            <div class="position-relative">
+                                <h6 class="mt-0 mb-0">
+                                    {{getDate(element.planning.day_2)}}
+                                </h6>
+                            </div>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="day3">
+                        <th mat-header-cell *matHeaderCellDef class="pl-0">
+                            Day 3
+                        </th>
+                        <td mat-cell *matCellDef="let element" class="pl-0">
+                            <div class="position-relative">
+                                <h6 class="mt-0 mb-0">
+                                    {{getDate(element.planning.day_3)}}
+                                </h6>
+                            </div>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="teacher">
+                        <th mat-header-cell *matHeaderCellDef class="pl-0">
+                            Teacher
+                        </th>
+                        <td mat-cell *matCellDef="let element" class="pl-0">
+                            <div class="position-relative">
+                                <h6 class="mt-0 mb-0">
+                                    {{element.teacher.name}} {{element.teacher.lastName}}
+                                </h6>
+                            </div>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="classroom">
+                        <th mat-header-cell *matHeaderCellDef class="pl-0">
+                            Classroom
+                        </th>
+                        <td mat-cell *matCellDef="let element" class="pl-0">
+                            <div class="position-relative">
+                                <h6 class="mt-0 mb-0">
+                                    {{element.classroom.name}}
+                                </h6>
+                            </div>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="viewDetails">
+                        <th mat-header-cell *matHeaderCellDef class="text-center pr-0">
+                            Details
+                        </th>
+                        <td mat-cell *matCellDef="let element" class="text-center pr-0">
+                            <div class="action">
+                                <button type="button" mat-button class="p-0 min-w-auto lh-1 h-auto" (click)="gotoDetail(element.planning.id)">
+                                    <i class="{{element.action.viewDetails}}"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                    <tr class="mat-row" *matNoDataRow>
+                        <td class="mat-cell text-center no-data" [attr.colspan]="displayedColumns.length">
+                            No data 
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <mat-paginator [pageSizeOptions]="[20, 50, 100]"></mat-paginator>
+        </div>
+        <div class="progress">
+            <mat-progress-bar *ngIf="firstLoading" mode="indeterminate"></mat-progress-bar>
+        </div>
+
+    </mat-card-content>
+</mat-card>

@@ -95,7 +95,7 @@ export class ClassroomsComponent {
     const link = document.createElement('a');
 
     link.href = url;
-    link.setAttribute('download', 'teachers.csv');
+    link.setAttribute('download', 'classrooms.csv');
     document.body.appendChild(link);
     link.click();
 

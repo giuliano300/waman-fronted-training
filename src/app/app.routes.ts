@@ -7,6 +7,7 @@ import { PwdRecoveryComponent } from './authentication/pwdRecovery/pwd-recovery.
 import { ResetPasswordComponent } from './authentication/reset-password/reset-password.component';
 import { TeachersComponent } from './pages/teachers/teachers.component';
 import { ClassroomsComponent } from './pages/classrooms/classrooms.component';
+import { TrainingsComponent } from './pages/trainings/trainings.component';
 
 export const routes: Routes = [
     { path: '', redirectTo : '/authentication', pathMatch: 'full' },
@@ -25,6 +26,7 @@ export const routes: Routes = [
         children: [
             { path: 'teachers', component: TeachersComponent },
             { path: 'classrooms', component: ClassroomsComponent },
+            { path: 'trainings', component: TrainingsComponent },
         ]
     },
     { path: '**', component: NotFoundComponent},

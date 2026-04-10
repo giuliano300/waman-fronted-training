@@ -38,6 +38,12 @@
                             Classrooms
                         </span>
                     </a>
+                    <a routerLink="/trainings" class="sidebar-menu-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                        <i-feather name="list"></i-feather>
+                        <span class="title">
+                            Trainings List
+                        </span>
+                    </a>
                     <a class="sidebar-menu-link" (click)="logout()" href="#">
                         <i-feather name="Lock"></i-feather>
                         <span class="title">Logout</span>

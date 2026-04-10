@@ -1,0 +1,47 @@
+<h1 mat-dialog-title>&nbsp;&nbsp;&nbsp;&nbsp;Training Details </h1>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-3">
+      <h6>Classroom</h6>
+    </div>
+    <div class="col-lg-9 text-right">
+      <span>{{data.classroom.name}}</span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-3">
+      <h6>Date</h6>
+    </div>
+    <div class="col-lg-3 text-right">
+      <span>{{getDate(data.planning.day_1)}}</span>
+    </div>
+    <div class="col-lg-3 text-right">
+      <span>{{getDate(data.planning.day_2)}}</span>
+    </div>
+    <div class="col-lg-3 text-right">
+      <span>{{getDate(data.planning.day_3)}}</span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-3">
+      <h6>Teacher</h6>
+    </div>
+    <div class="col-lg-9 text-right">
+      <span>{{data.teacher.name}} {{data.teacher.lastName}}</span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <h5>Workers</h5>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-3" *ngFor="let d of data.completeWt">
+      <div class="bordered">
+        <span class="workers">{{d.worker.name}} {{d.worker.lastName}}</span>
+      </div>
+  </div>
+</div>
+ <mat-dialog-actions>
+  <button mat-button (click)="onCancel()" class="btn confirm-button">Close</button>
+</mat-dialog-actions>
