@@ -1,0 +1,48 @@
+<div class="sign-in-area">
+    <div class="d-table">
+        <div class="d-table-cell">
+            <div
+                class="trinta-form ml-auto mr-auto bg-white border-radius"
+            >
+                <div class="title text-center mb-10">
+                    <h3>
+                        Forgot Password!
+                    </h3>
+                    <p class="text-black fs-15">
+                        Enter the email address you used when you joined and we'll send you instructions to reset your password.
+                    </p>
+                </div>
+                <form [formGroup]="authForm" (ngSubmit)="onSubmit()">
+                    <div class="form-group mt-10">
+                        <label class="label d-block fw-medium mb-10">
+                            Email
+                        </label>
+                        <mat-form-field>
+                            <i-feather name="mail"></i-feather>
+                            <mat-label>Insert email</mat-label>
+                            <input matInput type="email" id="email" formControlName="email">
+                        </mat-form-field>
+                        <div class="error text-danger" *ngIf="authForm.get('email')!.hasError('required') && authForm.get('email')!.touched">
+                            This field is required.
+                        </div>
+                        <div class="error text-danger" *ngIf="authForm.get('email')!.hasError('email') && authForm.get('email')!.touched">
+                            Insert a valid email.
+                        </div>
+                    </div>
+                    <button mat-button type="submit" [disabled]="authForm.invalid" class="mb-15">
+                        Send request
+                    </button>
+                    <div class="error text-danger mb-10" *ngIf="isError">
+                        email not present in our database 
+                    </div>
+                    <div class="success text-success mb-10" *ngIf="isSuccess">
+                        email sent to the specified address
+                    </div>
+                    <a (click)="havePassword()" class="recovery">
+                       Have your password? Click here to login
+                    </a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
